@@ -6,37 +6,71 @@ import { Error, Loader, SongCard } from '../components';
 import { useGetSongsByCountryQuery } from '../redux/services/shazamCore';
 
 const CountryTracks = () => {
-  const [country, setCountry] = useState('');
-  const [loading, setLoading] = useState(true);
+  // const [country, setCountry] = useState('');
+  // const [loading, setLoading] = useState(true);
+  // const { activeSong, isPlaying } = useSelector((state) => state.player);
+  // const { data, isFetching, error } = useGetSongsByCountryQuery(country);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://geo.ipify.org/api/v2/country?apiKey=at_3guQk9tJ0FEj0SUM7lhh6gCdtmTNj`)
+  //     .then((res) => setCountry(res?.data?.location.country))
+  //     .catch((err) => console.log(err))
+  //     .finally(() => setLoading(false));
+  // }, [country]);
+
+  const limit = 0
   const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const { data, isFetching, error } = useGetSongsByCountryQuery(country);
+ const genreTitle = 'Pop';   
 
-  useEffect(() => {
-    axios
-      .get(`https://geo.ipify.org/api/v2/country?apiKey=at_3guQk9tJ0FEj0SUM7lhh6gCdtmTNj`)
-      .then((res) => setCountry(res?.data?.location.country))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, [country]);
+ const [music, setMusic] = useState([]);
 
-  if (isFetching && loading) return <Loader title="Loading Songs around you..." />;
+ const getMusic = async() => {
+    const url = 'https://spotify23.p.rapidapi.com/albums/?ids=3IBcauSj5M2A6lTeffJzdv';
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'c343a4e2a7mshf63011433f1f3cdp1a5ce1jsne13e58cee6bd',
+		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+	}
+};
 
-  if (error && country !== '') return <Error />;
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+	setMusic(result);
+	console.log(result);
+  console.log(test)
+} catch (error) {
+	setMusic(error);
+}
+ }
+
+ useEffect(()=>{
+    getMusic();
+ },[])
+
+const test = async ()=>{
+  music?.albums?.name
+}
+  // if (isFetching && loading) return <Loader title="Loading Songs around you..." />;
+
+  // if (error && country !== '') return <Error />;
 
   return (
     <div className="flex flex-col">
-      <h2 className="font-bold text-3xl text-white text-left mt-4 mb-10">Around you <span className="font-black">{country}</span></h2>
+      <h2 className="font-bold text-3xl text-white text-left mt-4 mb-10">Albums you like</h2>
 
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-        {data?.map((song, i) => (
-          <SongCard
-            key={song.key}
-            song={song}
-            isPlaying={isPlaying}
-            activeSong={activeSong}
-            data={data}
-            i={i}
-          />
+        { music?.albums?.map((musicData)=>(
+                <SongCard  
+                 imag = {musicData?.images?.url} 
+                 song = {musicData?.name}
+                 isPlaying = {isPlaying}
+                 activeSong = {activeSong}
+                 link = {musicData?.external_url}
+                 />
+                 
         ))}
       </div>
     </div>

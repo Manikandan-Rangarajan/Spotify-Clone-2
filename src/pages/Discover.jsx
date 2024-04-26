@@ -29,7 +29,7 @@ try {
 	const result = await response.json();
 	setMusic(result);
 	console.log(result);
-    log;
+    
 } catch (error) {
 	setMusic(error);
 }
@@ -38,8 +38,6 @@ try {
  useEffect(()=>{
     getMusic();
  },[])
-
- const log = async()=>{ console.log(music?.playlists?.items?.data?.uri)}
  
 
 
