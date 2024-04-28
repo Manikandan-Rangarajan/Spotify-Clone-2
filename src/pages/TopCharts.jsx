@@ -17,12 +17,12 @@ const TopCharts = () => {
 
 
   const getMusic = async() => {
-    const url = 'https://spotify23.p.rapidapi.com/artist_singles/?id=2w9zwq3AktTeYYMuhMjju8&offset=0&limit=20';
+    const url = 'https://spotify23.p.rapidapi.com/artist_singles/?id=2w9zwq3AktTeYYMuhMjju8&offset=0&limit=30';
 const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'c343a4e2a7mshf63011433f1f3cdp1a5ce1jsne13e58cee6bd',
-		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': 'ff10e95f32msh503387e8fbee1a1p1c74c7jsn988b5d2e507c',
+    'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
 	}
 };
 
@@ -51,8 +51,9 @@ try {
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
       {   music?.data?.artist?.discography?.singles?.items.map((musicData)=>(
                 <SongCard  
-                 imag = {musicData?.releases?.items?.coverArt?.sources?.url} 
-                 song = {musicData?.releases?.items?.name}
+                 imag = {musicData?.releases?.items[0]?.coverArt?.sources[0]?.url} 
+                 song = {musicData?.releases?.items[0]?.name}
+                 uri = {musicData?.releases?.items[0]?.uri}
                  isPlaying = {isPlaying}
                  activeSong = {activeSong}
                  />

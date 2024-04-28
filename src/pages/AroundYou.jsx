@@ -26,12 +26,12 @@ const CountryTracks = () => {
  const [music, setMusic] = useState([]);
 
  const getMusic = async() => {
-    const url = 'https://spotify23.p.rapidapi.com/albums/?ids=3IBcauSj5M2A6lTeffJzdv';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'c343a4e2a7mshf63011433f1f3cdp1a5ce1jsne13e58cee6bd',
-		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+  const url = 'https://spotify23.p.rapidapi.com/albums/?ids=3IBcauSj5M2A6lTeffJzdv';
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': 'ff10e95f32msh503387e8fbee1a1p1c74c7jsn988b5d2e507c',
+      'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
 	}
 };
 
@@ -64,11 +64,11 @@ const test = async ()=>{
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
         { music?.albums?.map((musicData)=>(
                 <SongCard  
-                 imag = {musicData?.images?.url} 
+                 imag = {musicData?.images[0]?.url} 
                  song = {musicData?.name}
                  isPlaying = {isPlaying}
                  activeSong = {activeSong}
-                 link = {musicData?.external_url}
+                 uri = {musicData?.artists?.uri}
                  />
                  
         ))}

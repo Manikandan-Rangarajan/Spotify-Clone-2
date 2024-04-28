@@ -15,12 +15,12 @@ const Discover = () => {
  const [music, setMusic] = useState([]);
 
  const getMusic = async() => {
-    const url = 'https://spotify23.p.rapidapi.com/search/?q=%3CREQUIRED%3E&type=multi&offset=0&limit=30 &numberOfTopResults=10';
+    const url = 'https://spotify23.p.rapidapi.com/search/?q=%3CREQUIRED%3E&type=multi&offset=0&limit=30&numberOfTopResults=5';
 const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'c343a4e2a7mshf63011433f1f3cdp1a5ce1jsne13e58cee6bd',
-		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': 'ff10e95f32msh503387e8fbee1a1p1c74c7jsn988b5d2e507c',
+    'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
 	}
 };
 
@@ -52,13 +52,13 @@ try {
             </select>
         </div>
         <div className='flex flex-wrap justify-center gap-8'>
-            {   music?.users?.items.map((musicData)=>(
+            {   music?.albums?.items.map((musicData)=>(
                 <SongCard  
-                 imag = {musicData?.data?.image?.largeImageUrl} 
-                 song = {musicData?.data?.displayName}
+                 imag = {musicData?.data?.coverArt?.sources[0]?.url} 
+                 song = {musicData?.data?.name}
                  isPlaying = {isPlaying}
                  activeSong = {activeSong}
-                 data = {data}
+                 uri = {musicData?.data?.uri}
                  />
                  
             ))}

@@ -9,6 +9,39 @@ import Track from './Track';
 import VolumeBar from './VolumeBar';
 
 const MusicPlayer = () => {
+
+
+const [music, setMusic] = useState([]);
+
+const getMusic = async() => {
+  const url = 'https://spotify23.p.rapidapi.com/tracks/?ids=4WNcduiCmDNfmTEz7JvmLv';
+const options = {
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': 'c343a4e2a7mshf63011433f1f3cdp1a5ce1jsne13e58cee6bd',
+    'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+  }
+};
+
+try {
+const response = await fetch(url, options);
+const result = await response.json();
+setMusic(result);
+console.log(result);
+  
+} catch (error) {
+setMusic(error);
+}
+}
+
+useEffect(()=>{
+  getMusic();
+},[])
+
+
+
+
+
   const { activeSong, currentSongs, currentIndex, isActive, isPlaying } = useSelector((state) => state.player);
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);

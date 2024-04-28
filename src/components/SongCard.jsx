@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
+import Player from './MusicPlayer/Player';
 
-const SongCard = ({ imag, song, key, activeSong, isPlaying, data, link, name}) => {
+const SongCard = ({ imag, song, key, activeSong, isPlaying, data, link, name, uri}) => {
   // const dispatch = useDispatch();
 
   // const handlePauseClick = () => {
@@ -16,26 +17,37 @@ const SongCard = ({ imag, song, key, activeSong, isPlaying, data, link, name}) =
   //   dispatch(setActiveSong({ song, data, i }));
   //   dispatch(playPause(true));
   // };
+  const handlePlay = ()=>{
+ 
+    if(handlePauseClick){
+      handlePlayClick
+    }else{
+      handlePauseClick
+    }
+    
+
+  }
 
 const handlePauseClick = ()=>{
-
+    
 }
 
 const handlePlayClick = ()=>{
-
+  onclick = {Player}
 }
 
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       <div className="relative w-full h-56 group">
         <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex `}>
-          <PlayPause
+         <a href="https://manikandan-rangarajan.github.io/SPOTIFY-CLONE/" target='blank'><PlayPause
             isPlaying={isPlaying}
             activeSong={activeSong}
             song={song}
             handlePause={handlePauseClick}
             handlePlay={handlePlayClick}
           />
+          </a> 
         </div>
         <img alt="song_img" src={imag} className="w-full h-full rounded-lg" />
       </div>

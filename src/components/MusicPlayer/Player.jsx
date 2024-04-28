@@ -2,6 +2,38 @@
 import React, { useRef, useEffect } from 'react';
 
 const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat }) => {
+  
+  const [music, setMusic] = useState([]);
+
+const getMusic = async() => {
+  const url = 'https://spotify23.p.rapidapi.com/playlist_tracks/?id=37i9dQZF1DX4Wsb4d7NKfP&offset=0&limit=100';
+const options = {
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': 'ff10e95f32msh503387e8fbee1a1p1c74c7jsn988b5d2e507c',
+    'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+  }
+};
+
+try {
+const response = await fetch(url, options);
+const result = await response.json();
+setMusic(result);
+console.log(result);
+  
+} catch (error) {
+setMusic(error);
+}
+}
+
+useEffect(()=>{
+  getMusic();
+},[])
+
+
+
+  
+  
   const ref = useRef(null);
   // eslint-disable-next-line no-unused-expressions
   if (ref.current) {
@@ -22,7 +54,7 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
 
   return (
     <audio
-      src={activeSong?.hub?.actions[1]?.uri}
+      src={music?.items[0]?.album?.tracks?.preview_url}
       ref={ref}
       loop={repeat}
       onEnded={onEnded}
